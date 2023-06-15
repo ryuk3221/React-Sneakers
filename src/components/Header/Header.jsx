@@ -1,4 +1,4 @@
-const Header = () => {
+const Header = (props) => {
   return (
     <header className="header">
       <div className="container">
@@ -16,7 +16,7 @@ const Header = () => {
           <div className="header__right">
             <div className="user-nav">
               <div className="user-nav__item">
-                <button className="user-nav__btn">
+                <button className="user-nav__btn" onClick={props.onClick}>
                   <img
                     className="user-nav__icon"
                     src="images/icons/bag.svg"

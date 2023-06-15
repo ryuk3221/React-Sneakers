@@ -1,5 +1,16 @@
+import { useState } from "react";
+
 const Card = (props) => {
-  const onClickButton = () => {};
+  const [isAdded, setIsAdded] = useState(false);
+
+  const handleOnClickAdd = () => {
+    if (isAdded) {
+      setIsAdded(false);
+    } else {
+      setIsAdded(true);
+    }
+  };
+
   return (
     <div className="catalog__item catalog-item">
       <button className="favorite-btn">
@@ -18,8 +29,12 @@ const Card = (props) => {
           <span className="catalog-item__price-text">ЦЕНА:</span>
           <span className="catalog-item__price">{props.price} руб.</span>
         </div>
-        <button className="catalog-item__btn" onClick={props.onClick}>
-          <img src="images/icons/add.svg" alt="icon" />
+        <button className="catalog-item__btn">
+          <img
+            src={isAdded ? "images/icons/galo4ka.svg" : "images/icons/add.svg"}
+            alt="icon"
+            onClick={handleOnClickAdd}
+          />
         </button>
       </div>
     </div>

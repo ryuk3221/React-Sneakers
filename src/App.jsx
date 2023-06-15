@@ -2,12 +2,15 @@ import Card from "./components/Card/Card";
 import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer/Drawer";
 import Catalog from "./components/Catalog/Catalog";
+import { useState } from "react";
 
 function App() {
+  const [isOpen, setOpen] = useState(false);
+
   return (
     <div className="wrapper">
-      <Drawer />
-      <Header />
+      {isOpen ? <Drawer onClick={() => setOpen(false)} /> : null}
+      <Header onClick={() => setOpen(true)} />
       <main className="main">
         <section className="catalog">
           <div className="container">

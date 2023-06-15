@@ -1,10 +1,10 @@
-const Drawer = () => {
+const Drawer = (props) => {
   return (
     <div className="drawer">
       <div className="drawer__inner">
         <div className="drawer__head">
           <h3 className="drawer__title">Корзина</h3>
-          <button className="close-drawer">
+          <button className="close-drawer" onClick={props.onClick}>
             <img src="images/icons/delete-icon.svg" alt="" />
           </button>
         </div>
