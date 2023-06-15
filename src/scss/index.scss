@@ -67,6 +67,15 @@ body {
   }
 }
 
+$border-color: #eaeaea;
+$text-color: #5c5c5c;
+
+%btn-reset {
+  padding: 0;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
 .catalog {
   padding-top: 45px;
   padding-bottom: 45px;
@@ -101,6 +110,16 @@ body {
     gap: 40px;
     padding-top: 40px;
   }
+  $border-color: #eaeaea;
+  $text-color: #5c5c5c;
+
+  %btn-reset {
+    padding: 0;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+  }
+
   .catalog-item {
     padding: 20px 25px 20px;
     background: #ffffff;
