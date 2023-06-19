@@ -1,15 +1,13 @@
 import { useState } from "react";
 
-const Card = (props) => {
+const Card = ({onPlus, name, price, img, id}) => {
+
   const [isAdded, setIsAdded] = useState(false);
 
   const handleOnClickAdd = () => {
-    if (isAdded) {
-      setIsAdded(false);
-    } else {
-      setIsAdded(true);
-    }
-  };
+    setIsAdded(!isAdded);
+    onPlus({name, price, img, id});  
+  }; 
 
   return (
     <div className="catalog__item catalog-item">
@@ -21,13 +19,13 @@ const Card = (props) => {
         />
       </button>
       <div className="catalog-item__img-box">
-        <img className="catalog-item__img" src={props.img} alt="product-img1" />
+        <img className="catalog-item__img" src={img} alt="product-img1" />
       </div>
-      <h6 className="catalog-item__title">{props.name}</h6>
+      <h6 className="catalog-item__title">{name}</h6>
       <div className="catalog-item__footer">
         <div className="catalog-item__price-box">
           <span className="catalog-item__price-text">ЦЕНА:</span>
-          <span className="catalog-item__price">{props.price} руб.</span>
+          <span className="catalog-item__price">{price} руб.</span>
         </div>
         <button className="catalog-item__btn">
           <img

@@ -1,51 +1,44 @@
-const Drawer = (props) => {
+const Drawer = ({onClick, items = [], onMinus}) => {
+  const closeDrawer = (event) => {
+    if (event.target.className === 'drawer') {
+      onClick();
+    }
+  }
   return (
-    <div className="drawer">
+    <div className="drawer" onClick={closeDrawer}>
       <div className="drawer__inner">
         <div className="drawer__head">
           <h3 className="drawer__title">Корзина</h3>
-          <button className="close-drawer" onClick={props.onClick}>
+          <button className="close-drawer" onClick={onClick}>
             <img src="images/icons/delete-icon.svg" alt="" />
           </button>
         </div>
         <div className="drawer__items">
-          <div className="bag-item">
-            <div className="bag-item__img-box">
-              <img
-                className="bag-item__img"
-                src="images/catalog/img3.png"
-                alt=""
-              />
-            </div>
-            <div className="bag-item__text">
-              <h6 className="bag-item__title">
-                Мужские Кроссовки Nike Air Max 270
-              </h6>
-              <span className="bag-item__price">12 999 руб.</span>
-            </div>
-            <button className="bag-item__btn item-delete">
-              <img src="images/icons/delete-icon.svg" alt="" />
-            </button>
-          </div>
 
-          <div className="bag-item">
-            <div className="bag-item__img-box">
-              <img
-                className="bag-item__img"
-                src="images/catalog/img4.png"
-                alt=""
-              />
-            </div>
-            <div className="bag-item__text">
-              <h6 className="bag-item__title">
-                Мужские Кроссовки Nike Air Max 270
-              </h6>
-              <span className="bag-item__price">12 999 руб.</span>
-            </div>
-            <button className="bag-item__btn item-delete">
-              <img src="images/icons/delete-icon.svg" alt="" />
-            </button>
-          </div>
+          {
+            items.map(item => (
+              <div className="bag-item">
+                <div className="bag-item__img-box">
+                  <img
+                    className="bag-item__img"
+                    src={item.img}
+                    alt=""
+                  />
+                </div>
+                <div className="bag-item__text">
+                  <h6 className="bag-item__title">
+                    {item.name}
+                  </h6>
+                  <span className="bag-item__price">{item.price}</span>
+                </div>
+                <button className="bag-item__btn item-delete" onClick={() => onMinus(item)}>
+                  <img src="images/icons/delete-icon.svg" alt=""/>
+                </button>
+              </div>
+            ))
+          }
+
+          
         </div>
 
         <div className="drawer__info">
