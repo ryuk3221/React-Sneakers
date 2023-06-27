@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Card from "./components/Card/Card";
 import Header from "./components/Header/Header";
 import Drawer from "./components/Drawer/Drawer";
+import Orders from "./components/Orders/Orders";
 
 
 
@@ -13,12 +14,16 @@ export const AppContext = createContext({});
 
 
 function App() {
+  const [isComplete, setIsComplete] = useState(false);//isComplete - Заказ сделан
+  const [isOpenOrders, setOpenOrders] = useState(false);
+  const [orders, setOrders] = useState([]);
   const [isOpen, setOpen] = useState(false);
   const [drawerItems, setDrawerItems] = useState([]);
   const [inputValue, setInputValue] = useState("");
   const [catalog, setCatalog] = useState([]);
   const [favoriteItems, setFavoriteItems] = useState([]);
   const [isLoadingCatalog, setLoadingCatalog] = useState(true);
+  let [sumOfCart, setSumOfCart] = useState(0);
   
 
   useEffect(() => { 
@@ -31,9 +36,16 @@ function App() {
       setCatalog(catalogResponse.data);
       setLoadingCatalog(false);
     }
-
     fetchData();
+    
   }, []);
+
+  useEffect(() => {
+    (async () =>{
+      const { data } = await axios.get('https://6490876b1e6aa71680cb6990.mockapi.io/Orders');
+      setOrders(data.map(item => item.items).flat());
+    })();
+  }, [isComplete]);
 
   const onFavorite = (obj) => {
     setFavoriteItems((prev) => [...prev, obj]);
@@ -93,17 +105,19 @@ function App() {
     )
   }
   return (
-    <AppContext.Provider value={{catalog, drawerItems, isItemAddedToCart, setDrawerItems}}>
+    <AppContext.Provider 
+      value={{catalog, drawerItems, isItemAddedToCart, setDrawerItems, isOpen, setOpenOrders, isComplete, setIsComplete
+    }}>
       <div className="wrapper">
-      {isOpen ? (
+        <Orders isOpen={isOpenOrders} orders={orders}/>     
         <Drawer
           onMinus={deleteItemFromCart}
           items={drawerItems}
           onClick={() => setOpen(false)}
         />
-      ) : null}
+      
 
-      <Header onClick={() => setOpen(true)} quany={drawerItems.length} />
+      <Header onClick={() => setOpen(true)} quany={drawerItems.length} sum={sumOfCart}/>
       {/* <Routes>
         <Route path="/favorites" element={<Favorites />}/>
         <Route path="/" element={<Home />} />

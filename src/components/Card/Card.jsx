@@ -48,7 +48,7 @@ const Card = ({onPlus, onFavorite, name, price, img, id, drawerItems, loading = 
         <rect x="113" y="162" rx="8" ry="8" width="32" height="32" />
       </ContentLoader>) : (
         <>
-          <button className="favorite-btn" onClick={onClickFavorite}>
+          <button className="favorite-btn">
         <img
           className="favorite"
           src={isFavorite ? 'images/icons/item-heart-active.svg' : 'images/icons/item-heart.png'}
@@ -64,11 +64,11 @@ const Card = ({onPlus, onFavorite, name, price, img, id, drawerItems, loading = 
           <span className="catalog-item__price-text">ЦЕНА:</span>
           <span className="catalog-item__price">{price} руб.</span>
         </div>
-        <button  className="catalog-item__btn">
+        <button  className="catalog-item__btn" onClick={handleOnClickAdd} disabled={isItemAddedToCart(name)}>
           <img
             src={isItemAddedToCart(name) ? "images/icons/galo4ka.svg" : "images/icons/add.svg"}
             alt="icon"
-            onClick={handleOnClickAdd}
+            
           />
         </button>
       </div>

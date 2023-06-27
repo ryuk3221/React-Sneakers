@@ -50,6 +50,9 @@ body {
     display: flex;
     align-items: center;
     gap: 30px;
+    &__link {
+      @extend %btn-reset;
+    }
     &__bag-quany {
       position: absolute;
       top: -9px;
@@ -130,57 +133,7 @@ $text-color: #5c5c5c;
     cursor: pointer;
   }
 
-  .catalog-item {
-    padding: 20px 25px 20px;
-    background: #ffffff;
-    border: 1px solid $border-color;
-    border-radius: 40px;
-    display: flex;
-    flex-direction: column;
-    max-width: 210px;
-    gap: 14px;
-    position: relative;
-    transition: 0.3s ease-in-out;
-
-    &:hover {
-      box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.05);
-      transform: translateY(-10px);
-    }
-    .favorite-btn {
-      position: absolute;
-      @extend %btn-reset;
-    }
-    .favorite {
-      width: 32px;
-      height: 32px;
-    }
-    img {
-      width: 100%;
-    }
-    &__title {
-      font-weight: 400;
-      font-size: 14px;
-      line-height: 17px;
-    }
-    &__footer {
-      display: flex;
-      justify-content: space-between;
-    }
-    &__price-box {
-      display: flex;
-      flex-direction: column;
-    }
-    &__price-text {
-      font-weight: 500;
-      font-size: 11px;
-      line-height: 13px;
-      text-transform: uppercase;
-      color: #bdbdbd;
-    }
-    &__btn {
-      @extend %btn-reset;
-    }
-  }
+  
 }
 
 .drawer {
@@ -192,12 +145,30 @@ $text-color: #5c5c5c;
   height: 100vh;
   z-index: 1;
   transition: .3s;
-  opacity: 1;
-  visibility: visible;
+  opacity: 0;
+  visibility: hidden;
   &-open {
     opacity: 1;
     visibility: visible;
   }
+  &__inner {
+    width: 385px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    background-color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .3s;
+    transform: translateX(100%);
+    &-open {
+      transform: translateX(0%);
+    }
+  }
+  
   &__box {
     flex-grow: 1;
     display: flex;
@@ -237,20 +208,7 @@ $text-color: #5c5c5c;
     padding: 0 40px;
     
   }
-  &__inner {
-    width: 385px;
-    position: absolute;
-    right: 0;
-    top: 0;
-    height: 100%;
-    background-color: #fff;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: .3s;
-    transform: translateX(0);
-  }
+  
   &__title {
     font-weight: 700;
     font-size: 24px;
@@ -352,6 +310,116 @@ $text-color: #5c5c5c;
     align-items: start;
   }
   .close-drawer {
+    @extend %btn-reset;
+  }
+}
+
+
+.orders {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100vh;
+  z-index: 4;
+  transition: .3s;
+  opacity: 0;
+  visibility: hidden;
+  &-open {
+    opacity: 1;
+    visibility: visible;
+  }
+  &__inner {
+    width: 1020px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background-color: #fff;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: .3s;
+    transform: translateX(-100%);
+    &-open {
+      transform: translateX(0%);
+    }
+  }
+  &__inner-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 10px;
+    border-bottom: 1px solid $text-color;
+  }
+  &__title {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 27px;
+    margin-bottom: 9px;
+  }
+  .close-orders {
+    @extend %btn-reset;
+  }
+  &__items {
+    padding: 30px 0;
+    overflow-y: auto;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: auto;
+  }
+}
+.catalog-item {
+  padding: 20px 25px 20px;
+  background: #ffffff;
+  border: 1px solid $border-color;
+  border-radius: 40px;
+  display: flex;
+  flex-direction: column;
+  max-width: 210px;
+  gap: 14px;
+  position: relative;
+  transition: 0.3s ease-in-out;
+  margin: 0 auto;
+  &:hover {
+    box-shadow: 0px 14px 30px rgba(0, 0, 0, 0.05);
+    transform: translateY(-10px);
+  }
+  .favorite-btn {
+    position: absolute;
+    @extend %btn-reset;
+  }
+  .favorite {
+    width: 32px;
+    height: 32px;
+  }
+  img {
+    width: 100%;
+  }
+  &__title {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 17px;
+  }
+  &__footer {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__price-box {
+    display: flex;
+    flex-direction: column;
+  }
+  &__price-text {
+    font-weight: 500;
+    font-size: 11px;
+    line-height: 13px;
+    text-transform: uppercase;
+    color: #bdbdbd;
+  }
+  &__btn {
     @extend %btn-reset;
   }
 }

@@ -1,6 +1,22 @@
 import { NavLink } from 'react-router-dom';
+import { AppContext } from '../../App';
+import { useContext } from 'react';
 
 const Header = (props) => {
+  const {drawerItems} = useContext(AppContext);
+  const {setOpenOrders} = useContext(AppContext);
+
+  const getSumOfCart = () => {
+    let sum = 0;
+    if (drawerItems.length > 0) {
+      drawerItems.forEach(element => {
+        sum += element.price;
+      });
+    }
+    return sum;
+  }
+
+  
   return (
     <header className="header">
       <div className="container">
@@ -28,17 +44,13 @@ const Header = (props) => {
                   />
                   {props.quany > 0 && <span className="user-nav__bag-quany">{props.quany}</span>}
                 </button>
-                <span className="user-nav__sum">1205 руб.</span>
+                <span className="user-nav__sum">{getSumOfCart()} руб.</span>
               </div>
+              
               <div className="user-nav__item">
-                <NavLink to="/favorites">
-                  <img src="images/icons/heart.svg" alt="icon-favorites" />
-                </NavLink>
-              </div>
-              <div className="user-nav__item">
-                <NavLink className="user-nav__link" >
+                <button className="user-nav__link" onClick={() => setOpenOrders(true)}>
                   <img src="images/icons/profile.svg" alt="icon-user" />
-                </NavLink>
+                </button>
               </div>
             </div>
           </div>

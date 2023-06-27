@@ -4,12 +4,14 @@ import Info from "../Info";
 import { AppContext } from "../../App";
 
 const Drawer = ({onClick, items = [], onMinus}) => {
-  const [isComplete, setIsComplete] = useState(false);
+  const {isComplete, setIsComplete} = useContext(AppContext);
   const {setDrawerItems, drawerItems} = useContext(AppContext);
   const [orderId, setOrderId] = useState(null);
+  const {isOpen} = useContext(AppContext);
   const closeDrawer = (event) => {
-    if (event.target.className === 'drawer') {
+    if (event.target.classList.contains('drawer')) {
       onClick();
+      setIsComplete(false);
     }
   }
 
@@ -28,9 +30,19 @@ const Drawer = ({onClick, items = [], onMinus}) => {
       alert('Не удалось создать заказ :(');
     }
   }
+
+  const getSumOfCart = () => {
+    let sum = 0;
+    if (drawerItems.length > 0) {
+      drawerItems.forEach(element => {
+        sum += element.price;
+      });
+    }
+    return sum;
+  }
   return (
-    <div className={`drawer`} onClick={closeDrawer}>
-      <div className="drawer__inner">
+    <div className={(isOpen ? 'drawer drawer-open' : 'drawer')} onClick={closeDrawer}>
+      <div className={(isOpen ? 'drawer__inner drawer__inner-open' : 'drawer__inner')}>
         <div className="drawer__head">
           <h3 className="drawer__title">Корзина</h3>
           <button className="close-drawer" onClick={onClick}>
@@ -39,7 +51,7 @@ const Drawer = ({onClick, items = [], onMinus}) => {
         </div>
 
         {items.length !== 0 ? (
-          <div className="drawer__footer">
+        <div className="drawer__footer">
           <div className="drawer__items">
 
             {
@@ -72,14 +84,10 @@ const Drawer = ({onClick, items = [], onMinus}) => {
               <div className="drawer__info-item">
                 <span className="drawer__info-text">Итого: </span>
                 <span className="drawer__info--dashed"></span>
-                <span className="drawer__info-price">21 498 руб.</span>
+                <span className="drawer__info-price">{getSumOfCart()} руб.</span>
               </div>
 
-              <div className="drawer__info-item">
-                <span className="drawer__info-text">Налог 5%: </span>
-                <span className="drawer__info--dashed"></span>
-                <span className="drawer__info-price">1074 руб. </span>
-              </div>
+            
 
               <div className="drawer__info-item" onClick={onClickComplete}>
                 <button className="drawer__btn">Оформить заказ</button>
